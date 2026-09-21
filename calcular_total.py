@@ -1,41 +1,50 @@
 """
-Tarea práctica: crear una función basada en un problema de la vida real
-Tema: Definición y uso de funciones en Python
-
-Problema elegido: calcular el total de una compra en una tienda,
-a partir del precio de un producto y la cantidad que lleva el cliente.
-
+Tarea: Programación Básica - Funciones con parámetros y retorno de valores
 Autor: Ariel Alejandro Álvarez Chauca
+Universidad Estatal Amazónica - Tecnologías de la Información
+
+Problema: Calcular el precio total de una compra aplicando
+un descuento y el IVA del 15% vigente en Ecuador.
 """
 
+IVA = 0.15  # 15% de IVA en Ecuador
 
-def calcularTotal(precio, cantidad):
+
+def calcular_precio_total(precio_unitario, cantidad, descuento):
     """
-    Calcula el total a pagar por una compra.
-
-    Parámetros:
-        precio (float): precio unitario del producto.
-        cantidad (int): cantidad de unidades que lleva el cliente.
-
+    Parámetros de entrada:
+        precio_unitario (float): precio de un solo producto
+        cantidad (int): número de productos comprados
+        descuento (float): porcentaje de descuento (ej. 10 para 10%)
     Retorna:
-        float: el total de la compra (precio * cantidad).
+        float: valor final a pagar con descuento e IVA incluido
     """
-    total = precio * cantidad
-    return total
+    subtotal = precio_unitario * cantidad
+    valor_descuento = subtotal * (descuento / 100)
+    base_imponible = subtotal - valor_descuento
+    total = base_imponible + (base_imponible * IVA)
+    return round(total, 2)
 
 
-if __name__ == "__main__":
-    # Datos de ejemplo (equivalentes al pseudocódigo de la guía)
-    precio = 10
-    cantidad = 3
+# Programa principal
+print("=====================================")
+print("   CALCULADORA DE COMPRA - TIENDA    ")
+print("=====================================")
 
-    resultado = calcularTotal(precio, cantidad)
-    print(f"El total de la compra es: {resultado}")
+producto = input("Ingrese el nombre del producto: ")
+precio = float(input("Ingrese el precio unitario ($): "))
+cantidad = int(input("Ingrese la cantidad: "))
+descuento = float(input("Ingrese el descuento (%): "))
 
-    # Prueba adicional con datos ingresados por el usuario
-    precio_usuario = float(input("Ingrese el precio del producto: "))
-    cantidad_usuario = int(input("Ingrese la cantidad de productos: "))
+# Llamada a la función
+total_a_pagar = calcular_precio_total(precio, cantidad, descuento)
 
-    total_usuario = calcularTotal(precio_usuario, cantidad_usuario)
-    print(f"El total a pagar es: {total_usuario}")
-    
+# Mostrar el resultado en pantalla
+print("\n------------ FACTURA ------------")
+print("Producto:", producto)
+print("Cantidad:", cantidad)
+print("Precio unitario: $", precio)
+print("Descuento aplicado:", descuento, "%")
+print("IVA aplicado: 15 %")
+print("TOTAL A PAGAR: $", total_a_pagar)
+print("---------------------------------")
